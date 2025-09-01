@@ -11,7 +11,7 @@ import SwiftUI
 struct CoinOrganizeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabCustomView()
         }
     }
 }
