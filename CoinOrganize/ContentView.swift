@@ -8,33 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var user = User(name: "Daniel", wage: 3000)
-
+    @State private var expenses: [Expense] = []
+    @State private var showingSheet = false
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text("👤 \(user.name)")
-                .font(.title)
-
-            Text("💰 Salário: R$ \(user.wage, specifier: "%.2f")")
-                .font(.headline)
-
-            Text("➕ Ganhos extras: R$ \(user.wagesExtras.reduce(0, +), specifier: "%.2f")")
-                .font(.subheadline)
-
-            Text("📊 Total do mês: R$ \(user.totalIncome, specifier: "%.2f")")
-                .font(.title2)
-                .bold()
-                .padding(.top)
-
-            Button("Adicionar ganho extra de R$100") {
-                user.wagesExtras.append(100)
+        NavigationStack {
+            VStack {
+                if expenses.isEmpty {
+                    Text("Nenhum gasto registrado ainda")
+                        .foregroundStyle(.secondary)
+                        .padding()
+                } else {
+                    List(expenses) { expense in
+                        HStack {
+                            Text(expense.name)
+                            Spacer()
+                            Text(expense.value, format: .currency(code: "BRL"))
+                                .bold()
+                        }
+                    }
+                }
             }
-            .buttonStyle(.borderedProminent)
+            .toolbar { ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingSheet = true
+                } label: {
+                    Label("Adicionar", systemImage: "plus.circle.fill")
+                }
+            }
+            }
+            .sheet(isPresented: $showingSheet) {
+                AddExpensesSheet { newExpense in
+                    expenses.append(newExpense)
+                }
+            }
         }
-        .padding()
     }
 }
-
 
 #Preview {
     ContentView()
