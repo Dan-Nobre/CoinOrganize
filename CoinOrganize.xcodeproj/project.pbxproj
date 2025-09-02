@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6568BBA32E65FE8D00A01043 /* AddExpensesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6568BBA22E65FE8D00A01043 /* AddExpensesSheet.swift */; };
+		6568BBD62E6600CA00A01043 /* ExpanseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6568BBD52E6600C500A01043 /* ExpanseModel.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		6568BB892E63AAAB00A01043 /* CoinOrganize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinOrganize.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6568BBA22E65FE8D00A01043 /* AddExpensesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpensesSheet.swift; sourceTree = "<group>"; };
+		6568BBD52E6600C500A01043 /* ExpanseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpanseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +39,7 @@
 		6568BB802E63AAAB00A01043 = {
 			isa = PBXGroup;
 			children = (
+				6568BBD32E6600A500A01043 /* Expenses */,
 				6568BB8B2E63AAAB00A01043 /* CoinOrganize */,
 				6568BB8A2E63AAAB00A01043 /* Products */,
 			);
@@ -43,6 +51,23 @@
 				6568BB892E63AAAB00A01043 /* CoinOrganize.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6568BBD32E6600A500A01043 /* Expenses */ = {
+			isa = PBXGroup;
+			children = (
+				6568BBD42E6600B900A01043 /* Model */,
+				6568BBA22E65FE8D00A01043 /* AddExpensesSheet.swift */,
+			);
+			path = Expenses;
+			sourceTree = "<group>";
+		};
+		6568BBD42E6600B900A01043 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6568BBD52E6600C500A01043 /* ExpanseModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6568BBA32E65FE8D00A01043 /* AddExpensesSheet.swift in Sources */,
+				6568BBD62E6600CA00A01043 /* ExpanseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
