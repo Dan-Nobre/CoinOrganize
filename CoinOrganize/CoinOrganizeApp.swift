@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct CoinOrganizeApp: App {
@@ -13,5 +14,6 @@ struct CoinOrganizeApp: App {
         WindowGroup {
             TabCustomView()
         }
+        .modelContainer(for: Expense.self)
     }
 }
