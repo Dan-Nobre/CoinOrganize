@@ -6,10 +6,18 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Expense: Identifiable, Codable {
-    let id = UUID()
+@Model
+final class Expense {
+    var id: UUID
     var name: String
-    var value: Decimal
+    var value: Double
+    
+    init(id: UUID = UUID(), name: String, value: Double) {
+        self.id = id
+        self.name = name
+        self.value = value
+    }
 }
 
