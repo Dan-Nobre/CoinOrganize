@@ -19,13 +19,18 @@ struct ContentView: View {
                         .foregroundStyle(.secondary)
                         .padding()
                 } else {
-                    List(expenses) { expense in
-                        HStack {
-                            Text(expense.name)
-                            Spacer()
-                            Text(expense.value, format: .currency(code: "BRL"))
-                                .bold()
+                    VStack {
+                        Text("Expanses")
+                            .font(.headline)
+                        List(expenses) { expense in
+                            HStack {
+                                Text(expense.name)
+                                Spacer()
+                                Text(expense.value, format: .currency(code: "BRL"))
+                                    .bold()
+                            }
                         }
+                        .scrollContentBackground(.hidden)
                     }
                 }
             }
