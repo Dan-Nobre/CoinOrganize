@@ -8,15 +8,22 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct ExpansesView: View {
     @Environment(\.modelContext) private var context
-    @Query private var expenses: [Expense]
-    @State private var showingSheet = false
+    @StateObject private var viewModel: ExpensesViewModel
     
+    
+    ///Create a ModelContainer with your entities, get the ModelContext from the container:
+    init() {
+        let container = try! ModelContainer(for: Expense.self)
+        let context = container.mainContext
+        _viewModel = StateObject(wrappedValue: ExpensesViewModel(context: context))
+    }
+
     var body: some View {
         NavigationStack {
             VStack {
-                if expenses.isEmpty {
+                if viewModel.expenses.isEmpty {
                     Text("Nenhum gasto registrado ainda")
                         .foregroundStyle(.secondary)
                         .padding()
@@ -25,7 +32,7 @@ struct ContentView: View {
                         Text("Expanses")
                             .font(.headline)
                         List {
-                            ForEach(expenses) { expense in
+                            ForEach(viewModel.expenses) { expense in
                                 HStack {
                                     Text(expense.name)
                                     Spacer()
@@ -48,27 +55,22 @@ struct ContentView: View {
             }
             .toolbar { ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    showingSheet = true
+                    viewModel.showingSheet = true
                 } label: {
                     Label("Adicionar", systemImage: "plus.circle.fill")
                 }
             }
             }
-            .sheet(isPresented: $showingSheet) {
+            .sheet(isPresented: $viewModel.showingSheet) {
                 AddExpensesSheet { newExpense in
-                    context.insert(newExpense)
+                    viewModel.addExpense(newExpense)
                 }
             }
-        }
-    }
-    private func deleteExpense(at offsets: IndexSet) {
-        for index in offsets {
-            context.delete(expenses[index])
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ExpansesView()
         .modelContainer(for: Expense.self, inMemory: true)
 }
