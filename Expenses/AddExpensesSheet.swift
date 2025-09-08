@@ -11,7 +11,7 @@ struct AddExpensesSheet: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var expenseName: String = ""
-    @State private var expenseValue: Decimal = 0
+    @State private var expenseValue: Double = 0
     
     var onSave: (Expense) -> Void
     

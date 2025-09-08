@@ -32,7 +32,15 @@ struct ContentView: View {
                                     Text(expense.value, format: .currency(code: "BRL"))
                                         .bold()
                                 }
+                                .contextMenu {
+                                    Button(role: .destructive) {
+                                        context.delete(expense)
+                                    } label: {
+                                        Label("Deletar", systemImage: "trash")
+                                    }
+                                }
                             }
+                            
                         }
                         .scrollContentBackground(.hidden)
                     }
@@ -53,9 +61,14 @@ struct ContentView: View {
             }
         }
     }
+    private func deleteExpense(at offsets: IndexSet) {
+        for index in offsets {
+            context.delete(expenses[index])
+        }
+    }
 }
 
 #Preview {
     ContentView()
-            .modelContainer(for: Expense.self, inMemory: true)
+        .modelContainer(for: Expense.self, inMemory: true)
 }
