@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    @State private var expenses: [Expense] = []
+    @Environment(\.modelContext) private var context
+    @Query private var expenses: [Expense]
     @State private var showingSheet = false
     
     var body: some View {
@@ -22,12 +24,14 @@ struct ContentView: View {
                     VStack {
                         Text("Expanses")
                             .font(.headline)
-                        List(expenses) { expense in
-                            HStack {
-                                Text(expense.name)
-                                Spacer()
-                                Text(expense.value, format: .currency(code: "BRL"))
-                                    .bold()
+                        List {
+                            ForEach(expenses) { expense in
+                                HStack {
+                                    Text(expense.name)
+                                    Spacer()
+                                    Text(expense.value, format: .currency(code: "BRL"))
+                                        .bold()
+                                }
                             }
                         }
                         .scrollContentBackground(.hidden)
@@ -44,7 +48,7 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showingSheet) {
                 AddExpensesSheet { newExpense in
-                    expenses.append(newExpense)
+                    context.insert(newExpense)
                 }
             }
         }
@@ -53,4 +57,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+            .modelContainer(for: Expense.self, inMemory: true)
 }
