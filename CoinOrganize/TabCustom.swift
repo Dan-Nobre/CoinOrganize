@@ -18,7 +18,7 @@ struct TabCustomView: View {
                 .padding(100)
             
             TabView(selection: $selection) {
-                ContentView()
+                ExpansesView()
 //                    .foregroundStyle(.red)
                     .padding()
                     .tag(0)

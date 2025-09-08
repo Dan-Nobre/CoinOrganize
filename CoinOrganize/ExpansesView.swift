@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct ExpansesView: View {
     @Environment(\.modelContext) private var context
     @Query private var expenses: [Expense]
     @State private var showingSheet = false
@@ -69,6 +69,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ExpansesView()
         .modelContainer(for: Expense.self, inMemory: true)
 }
