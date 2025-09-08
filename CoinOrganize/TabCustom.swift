@@ -19,7 +19,8 @@ struct TabCustomView: View {
             
             TabView(selection: $selection) {
                 ContentView()
-                    .foregroundStyle(.red)
+//                    .foregroundStyle(.red)
+                    .padding()
                     .tag(0)
                 
                 Text("Tela 2")
@@ -27,8 +28,8 @@ struct TabCustomView: View {
                     .tag(1)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .font(.largeTitle)
-            .bold()
+//            .font(.largeTitle)
+//            .bold()
             
             RoundedRectangle(cornerRadius: 30)
                 .frame(height: 60)
@@ -43,15 +44,15 @@ struct TabCustomView: View {
                 .overlay {
                     HStack {
                         tabItem(tab: 0,
-                                icon: "house",
-                                label: "Casita")
+                                icon: "dollarsign.circle.fill",
+                                label: "Expanses")
                         
                         tabItem(tab: 1,
-                                icon: "calendar",
-                                label: "Calendaritooooooo")
+                                icon: "scanner.fill",
+                                label: "Graphs")
                     }
                     .padding(6)
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.black)
                 }
                 .padding(.horizontal)
         }
@@ -73,7 +74,7 @@ struct TabCustomView: View {
                 }
                 Spacer()
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(.orange)
             .bold()
             .frame(maxHeight: .infinity)
             .padding(4)
