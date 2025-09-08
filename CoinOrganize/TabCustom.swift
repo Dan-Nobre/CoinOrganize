@@ -10,6 +10,7 @@ import SwiftUI
 struct TabCustomView: View {
     @Namespace private var animation
     @State var selection: Int = 0
+    @Environment(\.modelContext) private var context
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -18,7 +19,7 @@ struct TabCustomView: View {
                 .padding(100)
             
             TabView(selection: $selection) {
-                ExpansesView()
+                ExpansesView(context: context)
 //                    .foregroundStyle(.red)
                     .padding()
                     .tag(0)

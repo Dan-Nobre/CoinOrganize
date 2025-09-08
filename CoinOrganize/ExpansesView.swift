@@ -12,14 +12,10 @@ struct ExpansesView: View {
     @Environment(\.modelContext) private var context
     @StateObject private var viewModel: ExpensesViewModel
     
-    
-    ///Create a ModelContainer with your entities, get the ModelContext from the container:
-    init() {
-        let container = try! ModelContainer(for: Expense.self)
-        let context = container.mainContext
+    init(context: ModelContext) {
         _viewModel = StateObject(wrappedValue: ExpensesViewModel(context: context))
     }
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -29,8 +25,10 @@ struct ExpansesView: View {
                         .padding()
                 } else {
                     VStack {
-                        Text("Expanses")
+                        Text("Expenses")
                             .font(.headline)
+                            .padding()
+                        
                         List {
                             ForEach(viewModel.expenses) { expense in
                                 HStack {
@@ -41,36 +39,45 @@ struct ExpansesView: View {
                                 }
                                 .contextMenu {
                                     Button(role: .destructive) {
-                                        context.delete(expense)
+                                        viewModel.deleteExpense(expense)
                                     } label: {
                                         Label("Deletar", systemImage: "trash")
                                     }
                                 }
                             }
-                            
+//                            .scrollContentBackground(.hidden)
                         }
-                        .scrollContentBackground(.hidden)
+                        .scrollContentBackground(.hidden) // remove o fundo
+//                        .background(Color.clear)
                     }
                 }
             }
-            .toolbar { ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    viewModel.showingSheet = true
-                } label: {
-                    Label("Adicionar", systemImage: "plus.circle.fill")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        viewModel.showingSheet = true
+                    } label: {
+                        Label("Adicionar", systemImage: "plus.circle.fill")
+                    }
                 }
-            }
             }
             .sheet(isPresented: $viewModel.showingSheet) {
                 AddExpensesSheet { newExpense in
                     viewModel.addExpense(newExpense)
                 }
             }
+            .onAppear {
+                viewModel.loadExpenses()
+            }
         }
     }
 }
 
-#Preview {
-    ExpansesView()
-        .modelContainer(for: Expense.self, inMemory: true)
-}
+//#Preview {
+//    // Cria o container com a entidade Expense
+//    let container = try! ModelContainer(for: Expense.self, inMemory: true)
+//
+//    // Passa o context do container para a view
+//    ExpansesView(context: container.modelContext)
+//}
+
